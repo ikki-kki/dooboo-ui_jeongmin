@@ -16,40 +16,33 @@ function Default(): React.ReactElement {
     // => setInterval 대신 useInterval로 고치자
     if (progress >= 0 && progress <= 100) {
       const timeout = setInterval(() => {
-        setProgress((progress += 1)), 20;
+        setProgress((progress += 1));
         if (progress === 100) {
-          setProgress(0);
+          setProgress(100);
           clearInterval(timeout);
         }
-      });
+      }, 30);
     }
-
-    // Linear determinate
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Text>Linear with label</Text>
       <ProgressBar
-        bgColor={'red'}
+        barColor={'#609FFF'}
+        bgColor={'#d0e3ff'}
         progress={progress}
-        borderRadius={5}
+        round={'round'}
         label={true}
         determinate={true}
       />
       <Text>Linear determinate</Text>
       <ProgressBar
-        bgColor={'#609FFF'}
-        borderRadius={0}
+        barColor={'#609FFF'}
+        bgColor={'#d0e3ff'}
+        round={'square'}
         progress={progress}
         determinate={true}
-      />
-      <Text>Linear indeterminate</Text>
-      <ProgressBar
-        bgColor={'#609FFF'}
-        borderRadius={0}
-        progress={progress}
-        determinate={false}
       />
     </SafeAreaView>
   );
