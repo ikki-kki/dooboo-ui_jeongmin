@@ -1,48 +1,56 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, { ReactElement } from 'react';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
 import { ContainerDeco } from '../../storybook/decorators';
 import ProgressBar from '../../main/ProgressBar';
 import { storiesOf } from '@storybook/react-native';
-import styled from 'styled-components/native';
 
 function Default(): React.ReactElement {
-  let [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setProgress(0);
-
-    // Linear with label
-    // => setInterval 대신 useInterval로 고치자
-    if (progress >= 0 && progress <= 100) {
-      const timeout = setInterval(() => {
-        setProgress((progress += 1));
-        if (progress === 100) {
-          setProgress(100);
-          clearInterval(timeout);
-        }
-      }, 30);
-    }
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Linear with label</Text>
+      <Text>Default</Text>
+      <ProgressBar />
+
+      <Text>Rounded border radius</Text>
+      <ProgressBar round={'round'} />
+
+      <Text>limited determinate ProgressBar</Text>
       <ProgressBar
-        barColor={'#609FFF'}
-        bgColor={'#d0e3ff'}
-        progress={progress}
-        round={'round'}
-        label={true}
-        determinate={true}
+        barColor={'#A055FF'}
+        bgColor={'#e3ccff'}
+        height={10}
+        animationType={'determinate'}
+        animationSpeed={5000}
       />
-      <Text>Linear determinate</Text>
+
+      <Text>Infinite determinate ProgressBar</Text>
+      <ProgressBar
+        barColor={'#A055FF'}
+        bgColor={'#e3ccff'}
+        round={'square'}
+        height={10}
+        animationType={'default'}
+        animationSpeed={3000}
+      />
+
+      <Text>Infinite indeterminate ProgressBar</Text>
       <ProgressBar
         barColor={'#609FFF'}
-        bgColor={'#d0e3ff'}
+        bgColor={'#D0E3FF'}
         round={'square'}
-        progress={progress}
-        determinate={true}
+        height={10}
+        animationType={'indeterminate'}
+        animationSpeed={3000}
+      />
+
+      <Text>Infinite indeterminate-flex ProgressBar</Text>
+      <ProgressBar
+        barColor={'#609FFF'}
+        bgColor={'#D0E3FF'}
+        round={'square'}
+        height={10}
+        animationType={'indeterminate-flex'}
+        animationSpeed={3000}
       />
     </SafeAreaView>
   );
